@@ -11,4 +11,4 @@ This notebook contains an interactive game where a user needs to enter a sentenc
 
 ### Game 2
 ReadingComprehensionGame.ipynb <br>
-This notebook contains an interactive game where a user needs to answer question based on the given reading comprehension. A pretrained BERT-based model is used to evaluate the user's performance. 
+This notebook contains an interactive game where a user needs to answer questions based on the given reading comprehension. A pretrained BERT-based model is used to evaluate the user's performance. 
