@@ -1,4 +1,4 @@
-# Sentece-Similarity
+# Sentence-Similarity
 EE 526 Deep Learning Final Project
 
 ### Core Notebook
