@@ -5,14 +5,18 @@ import model_util
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def index():
     return 'Hello, World!' 
 
+@app.route('/load')
+def load_model():
+    model_util.dowload_model()
+    return 'Downloaded model! Now go to hello!' 
 
 @app.route('/hello')
 def hello():
-    # model_util.dowload_model()
     model, tokenizer = model_util.create_pretrained_model()
     model.load_weights('weights.h5')
     print(model.summary())
