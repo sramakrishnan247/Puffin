@@ -18,18 +18,17 @@ def load_model():
 
 @app.route('/hello')
 def hello():
-    model, tokenizer = model_util.create_pretrained_model()
-    model.load_weights('weights.h5')
-    stringlist = []
-    model.summary(print_fn=lambda x: stringlist.append(x))
-    message = "\n".join(stringlist)
-    '''
-    print(model.summary())
+    model = tf.keras.models.load_model('pretrained_model.h5')
+    tokenizer = model_util.get_tokenizer()
+    # stringlist = []
+    # model.summary(print_fn=lambda x: stringlist.append(x))
+    # message = "\n".join(stringlist)
+    # print(model.summary())
     sentence1 = 'Good Morning'
     sentence2 = 'Bad Night'
     sentiment, similarity = model_util.is_similar(sentence1, sentence2, tokenizer, model)
     
     message = 'Sentence 1:' + sentence1 + '\n' + 'Sentence 2:' + sentence2 + '\n' + \
          'Sentiment' + str(sentiment) + '\n' + 'Similarity' + str(similarity)
-    '''
+
     return message
