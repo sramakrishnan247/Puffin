@@ -1,0 +1,21 @@
+ .circle {
+  border-radius: 50%;
+  width: 72px;
+  height: 72px;
+  padding: 10px;
+  background: orange;
+  border: 3px solid #000;
+  color: #000;
+  text-align: center;
+  font: 32px Arial, sans-serif;
+  margin: auto;
+}
+
+.jumbotron {
+ background-image: url('D:/Harsha/MS_CS/Fall2020/BERT_Project/GitRepo/Sentence-Similarity/static/img/geometric.jpg');
+ background-attachment: fixed;
+ background-position: center;
+ background-repeat: no-repeat;
+ background-size: cover;
+ color: black;
+}
