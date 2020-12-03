@@ -2,7 +2,7 @@ $(document).ready(function(){
 $.ajax({ url: "http://localhost:5000/question",
         context: document.body,
         success: function(result){
-           $("#question").text(result.data[0].employee_name)
+           $("#question").text(JSON.stringify(result))
         }});
 
 
