@@ -1,8 +1,8 @@
 $(document).ready(function(){
-$.ajax({ url: "http://localhost:5000/question",
+$.ajax({ url: "http://18.205.246.12:8080/question",
         context: document.body,
         success: function(result){
-           $("#question").text(result.data[0].employee_name)
+           $("#question").text(JSON.stringify(result))
         }});
 
 
@@ -11,7 +11,7 @@ $("#submitbtn").click(function(e) {
 	alert("clicked button")
     $.ajax({
         type: "POST",
-        url: "http://localhost:5000/question",
+        url: "http://18.205.246.12:8080/question",
         data: { 
             question: $("#question").text(),
             answer: $("#exampleFormControlTextarea1").text() 
