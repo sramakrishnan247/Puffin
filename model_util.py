@@ -13,6 +13,7 @@ from os import path
 import tarfile
 
 train_snli = None
+train_squad = None
 model = None
 tokenizer = None
 
@@ -60,6 +61,7 @@ def setup_model():
     model = tf.keras.models.load_model('pretrained_model.h5')
     tokenizer = get_tokenizer()
     load_snli_dataset()
+    load_squad()
 
 def get_tokenizer():
     tokenizer = transformers.BertTokenizer.from_pretrained(
@@ -85,6 +87,16 @@ def load_snli_dataset():
         train_snli = pd.read_csv("./SNLI_Corpus/snli_1.0_train.csv", nrows=100000)
     except:
         print('snli download failed!')
+
+def load_squad():
+    try:
+        global train_squad
+        url = 'https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v2.0.json'
+        response = requests.get(url, stream=True)
+        train_squad = response.json() 
+        print(len(train_squad))
+    except:
+        print('squad download failed!')
 
 def is_similar(sentence1, sentence2, tokenizer, model):
     '''
