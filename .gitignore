@@ -2,3 +2,6 @@ weights.h5
 flasktf/
 __pycache__/
 pretrained_model.h5
+snli.tar.gz
+SNLI_Corpus/
+env/

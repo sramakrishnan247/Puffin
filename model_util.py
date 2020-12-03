@@ -9,6 +9,10 @@ import random
 import json
 import random
 from pprint import pprint
+from os import path
+import tarfile
+
+train_snli = None
 
 #Taken from https://github.com/nsadawi/Download-Large-File-From-Google-Drive-Using-Python
 #taken from this StackOverflow answer: https://stackoverflow.com/a/39225039
@@ -45,14 +49,33 @@ def dowload_model():
   file_id = '1xq2eOGYh1U0DLy0B40h24qmxIV0IJC7b'
 #   destination = 'weights.h5'
   destination = 'pretrained_model.h5'
-  download_file_from_google_drive(file_id, destination)
+  if not path.exists(destination):
+    download_file_from_google_drive(file_id, destination)
 
 def get_tokenizer():
     tokenizer = transformers.BertTokenizer.from_pretrained(
-        "squeezebert/squeezebert-uncased", do_lower_case=True
+        "bert-base-uncased", do_lower_case=True
       )
     return tokenizer
 
+def load_snli_dataset():
+    global train_snli
+    try:
+        url = 'https://raw.githubusercontent.com/MohamadMerchant/SNLI/master/data.tar.gz'
+        target_path = 'snli.tar.gz'
+        response = requests.get(url, stream=True)
+        print('Response is:')
+        print(response)
+        print()
+        if response.status_code == 200:
+            with open(target_path, 'wb') as f:
+                f.write(response.raw.read())
+        tar = tarfile.open("snli.tar.gz")
+        tar.extractall()
+        tar.close()
+        train_snli = pd.read_csv("./SNLI_Corpus/snli_1.0_train.csv", nrows=100000)
+    except:
+        print('snli download failed!')
 
 def is_similar(sentence1, sentence2, tokenizer, model):
     '''
