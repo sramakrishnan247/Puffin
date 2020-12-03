@@ -1,9 +1,11 @@
+from collections import defaultdict
 from email import message
 import tensorflow as tf
 import requests
 import model_util
 from flask import render_template, request,Flask
 import pandas as pd
+import random
 
 app = Flask(__name__)
 
@@ -13,10 +15,7 @@ model = None
 def before_first_request_func():
     global model
     print("This function will run once")
-    model_util.dowload_model()
-    model_util.load_snli_dataset()
-    model = tf.keras.models.load_model('pretrained_model.h5')
-    tokenizer = model_util.get_tokenizer()
+    model_util.setup_model()
 
 @app.route('/')
 def index():
@@ -24,25 +23,28 @@ def index():
 
 @app.route('/question', methods=['GET', 'POST'])
 def question():
+    response = defaultdict(str) 
     if request.method == 'GET':
+        index = random.randint(0,9999)
+        question = model_util.train_snli['sentence1'][index]
+        response['question'] = question
+    elif request.method == 'POST':
+        data = request.get_json()
+        prev_question = data['question']
+        answer = data['answer']
+        sentiment, similarity = model_util.is_similar(prev_question, 
+                                                    answer , 
+                                                    model_util.tokenizer, 
+                                                    model_util.model)
+        
+        index = random.randint(0,9999)
+        next_question = model_util.train_snli['sentence1'][index]
 
-
-    return 'Downloaded model! Now go to hello!' 
-
-@app.route('/hello')
-def hello():
-    # stringlist = []
-    # model.summary(print_fn=lambda x: stringlist.append(x))
-    # message = "\n".join(stringlist)
-    # print(model.summary())
-    sentence1 = 'Good Morning'
-    sentence2 = 'Bad Night'
-    sentiment, similarity = model_util.is_similar(sentence1, sentence2, tokenizer, model)
+        response['sentiment'] = sentiment
+        response['similarity'] = str(similarity)
+        response['question'] = next_question
     
-    message = 'Sentence 1:' + sentence1 + '\n' + 'Sentence 2:' + sentence2 + '\n' + \
-         'Sentiment' + str(sentiment) + '\n' + 'Similarity' + str(similarity)
-
-    return message
+    return response 
 
 if __name__ == '__main__':
     app.run()

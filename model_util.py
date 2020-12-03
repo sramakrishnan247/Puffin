@@ -13,6 +13,8 @@ from os import path
 import tarfile
 
 train_snli = None
+model = None
+tokenizer = None
 
 #Taken from https://github.com/nsadawi/Download-Large-File-From-Google-Drive-Using-Python
 #taken from this StackOverflow answer: https://stackoverflow.com/a/39225039
@@ -45,12 +47,19 @@ def save_response_content(response, destination):
             if chunk: # filter out keep-alive new chunks
                 f.write(chunk)
 
-def dowload_model():
+def download_model():
   file_id = '1xq2eOGYh1U0DLy0B40h24qmxIV0IJC7b'
 #   destination = 'weights.h5'
   destination = 'pretrained_model.h5'
   if not path.exists(destination):
     download_file_from_google_drive(file_id, destination)
+
+def setup_model():
+    global model, tokenizer
+    download_model() 
+    model = tf.keras.models.load_model('pretrained_model.h5')
+    tokenizer = get_tokenizer()
+    load_snli_dataset()
 
 def get_tokenizer():
     tokenizer = transformers.BertTokenizer.from_pretrained(
