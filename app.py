@@ -30,6 +30,7 @@ def question():
         response['question'] = question
     elif request.method == 'POST':
         data = request.get_json()
+        print(data)
         prev_question = data['question']
         answer = data['answer']
         sentiment, similarity = model_util.is_similar(prev_question, 
