@@ -17,9 +17,12 @@ train_squad = None
 model = None
 tokenizer = None
 
-#Taken from https://github.com/nsadawi/Download-Large-File-From-Google-Drive-Using-Python
-#taken from this StackOverflow answer: https://stackoverflow.com/a/39225039
 def download_file_from_google_drive(id, destination):
+    '''
+        Loads the pretrained model from Google Drive.
+        This idea has been taken from this StackOverflow answer:
+        https://stackoverflow.com/a/39225039
+    '''
     URL = "https://docs.google.com/uc?export=download"
 
     session = requests.Session()
@@ -50,7 +53,6 @@ def save_response_content(response, destination):
 
 def download_model():
   file_id = '1xq2eOGYh1U0DLy0B40h24qmxIV0IJC7b'
-#   destination = 'weights.h5'
   destination = 'pretrained_model.h5'
   if not path.exists(destination):
     download_file_from_google_drive(file_id, destination)
@@ -70,6 +72,10 @@ def get_tokenizer():
     return tokenizer
 
 def load_snli_dataset():
+    '''
+        This function downloads the Stanford Natural Language Inference datset.
+        The dataset is stored in train_snli
+    '''
     global train_snli
     try:
         url = 'https://raw.githubusercontent.com/MohamadMerchant/SNLI/master/data.tar.gz'
@@ -89,6 +95,10 @@ def load_snli_dataset():
         print('snli download failed!')
 
 def load_squad():
+    '''
+        This funciton downloads the Stanford Question Answering Datset.
+        The dataset is stored in train_squad
+    '''
     try:
         global train_squad
         url = 'https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v2.0.json'
@@ -118,10 +128,36 @@ def is_similar(sentence1, sentence2, tokenizer, model):
     token_type_ids = np.array(encoded["token_type_ids"], dtype="int32")
 
     x_train = [input_ids, attention_masks, token_type_ids]
-    # y_train = tf.keras.utils.to_categorical(train_df[0].label, num_classes=3)
 
     y_pred = np.array(model.predict(x_train))[0]
-    # print(y_pred)
     idx = np.argmax(y_pred)
     sentiment_labels = ["contradiction", "entailment", "neutral"]
     return (sentiment_labels[idx], y_pred[idx])
+
+def get_random_snli_question():
+    '''
+        Returns a random question from the SNLI dataset.
+    '''
+    index = random.randint(0,9999)
+    question = train_snli['sentence1'][index]
+    return question
+
+def get_random_squad_question():
+    '''
+        Loads a random paragraph, question and answer from SQuAD
+        and returns a 3 element tuple. 
+    '''
+    index = random.randint(0,442)
+    group = train_squad['data'][index]
+    index = random.randint(0,len(group))
+    paragraph = group['paragraphs'][index]
+    context = paragraph['context']
+    question = paragraph['qas'][index]['question']
+    item = paragraph['qas'][index]
+    
+    if item['is_impossible']:
+      answer = paragraph['qas'][index]['plausible_answers'][0]['text']
+    else:
+      answer = paragraph['qas'][index]['answers'][0]['text']
+
+    return (context, question, answer)
