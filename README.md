@@ -21,7 +21,6 @@ Puffin is a Web App with two games BERTMatch and BERTQuiz. It uses a pretrained 
   Python and its dependencies
 
     apt-get install -y python python-setuptools python-dev build-essential python-pip 
-
    
 ## 3. Install and Configure Web Server
 
@@ -29,13 +28,13 @@ Install Python Flask and Tensorflow dependencies
 
     pip install -r requirements.txt
 
-## 5. Start Web Server
+## 4. Start Web Server
 
 Start web server
 
     FLASK_APP=app.py flask run --host=0.0.0.0
     
-## 6. Test
+## 5. Test
 
 Open a browser and go to URL
 
