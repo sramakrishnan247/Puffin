@@ -6,8 +6,8 @@ body{
   font-family: 'Montserrat', sans-serif;
 }
 #wrapper{
-  width:100vw;
-  height:100vh;
+  width:20vw;
+  height:40vh;
   box-sizing:border-box;
   
   align-items:center;
