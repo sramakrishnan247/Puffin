@@ -1,6 +1,8 @@
 # Puffin
 Test your English language skills!
 
+[![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 ## About
 Puffin is a Web App with two games BERTMatch and BERTQuiz. It uses a pretrained neural network to compute semantic similarity and evaluate user response. BERTQuiz is a Reading Comprehension game and BERTMatch checks how well one can paraphrase a sentence.
 
