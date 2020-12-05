@@ -1,5 +1,5 @@
-# Sentence-Similarity
-EE 526 Deep Learning Final Project
+# Puffin
+Test your English language skills!
 
 ## About
 We build and experiment with different deep learning models to predict the semantic similarity between two sentences. From our experiments, we have observed that the transformer based BERT models outperformed the LSTM network and also trained faster. Moreover, the BERT models that were finetuned with a Bi-directional LSTM gave a much better performance than the BERT model that was not finetuned to the specific task of semantic similarity recognition. We have developed two games, SemanticSimilarityGame and ReadingComprehensionGame, both of which are fun to play and a good way to learn English language
