@@ -32,6 +32,7 @@ $("#submitbtn").click(function(e) {
 			$('#alerterrbox').hide()
 			$('#alertmsg').text(result["sentiment"]+", Similarity: "+ result["similarity"])
 			$('#alertmsg').show()
+            $("#exampleFormControlTextarea1").val('') 
 		 
         },
         error: function(result) {
