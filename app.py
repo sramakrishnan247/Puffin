@@ -21,8 +21,17 @@ def before_first_request_func():
 def index():
     return render_template('index.html') 
 
+@app.route('/bertmatch/')
+def bertmatch():
+    return render_template('bertmatch.html') 
+
+@app.route('/bertquiz/')
+def bertquiz():
+    return render_template('bertquiz.html') 
+
 @app.route('/bertmatch/question', methods=['GET', 'POST'])
 def bertmatch_question():
+    print(request.get_json())
     response = defaultdict(str) 
     if request.method == 'POST':
 
@@ -49,6 +58,7 @@ def bertmatch_question():
 
 @app.route('/bertquiz/question', methods=['GET', 'POST'])
 def bertquiz_question():
+    print(request.get_json())
     response = defaultdict(str) 
     if request.method == 'POST':            
 

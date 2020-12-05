@@ -2,7 +2,7 @@ $(document).ready(function(){
 	
 $('#alertdiv').hide()
 
-$.ajax({ url: "http://18.205.246.12:8080/question",
+$.ajax({ url: "http://localhost:5000/bertmatch/question",
         context: document.body,
         success: function(result){
            $("#question").text(result["question"])
@@ -19,7 +19,7 @@ $("#submitbtn").click(function(e) {
 	
     $.ajax({
         type: "POST",
-        url: "http://18.205.246.12:8080/question",
+        url: "http://localhost:5000/bertmatch/question",
         data: data 
         ,
 	contentType:"application/json; charset=utf-8",
