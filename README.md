@@ -54,7 +54,3 @@ Open a browser and go to URL
 
 ## NLP Experiments
 We build and experiment with different deep learning models to predict the semantic similarity between two sentences. From our experiments, we observed that the transformer based BERT models outperformed the LSTM network and also trained faster. Moreover, the BERT models that were finetuned with a Bi-directional LSTM gave a much better performance than the BERT model that was not finetuned to the specific task of semantic similarity recognition. We have developed two games, BertMatch(Paraphrase a sentence) and BertQuiz(Reading Comprehension), both of which are fun to play and a good way to learn English language!
-
-
-## Thank You!
-Please ⭐️ this repo and share it with others!
